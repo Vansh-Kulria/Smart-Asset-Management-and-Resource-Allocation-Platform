@@ -15,7 +15,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex-1 flex min-h-screen bg-slate-950 text-slate-100 overflow-hidden relative">
+    <div className="flex-1 flex flex-col lg:flex-row h-screen bg-slate-950 text-slate-100 overflow-hidden relative">
       <Sidebar user={session.user as any} />
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {children}

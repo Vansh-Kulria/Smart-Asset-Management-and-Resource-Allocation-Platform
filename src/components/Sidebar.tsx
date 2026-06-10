@@ -61,36 +61,45 @@ export default function Sidebar({ user }: SidebarProps) {
   return (
     <>
       {/* Mobile Toggle Bar */}
-      <div className="lg:hidden w-full bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center z-30">
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-lg">
-            <Box className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-semibold text-lg text-white">SmartAsset</span>
-        </div>
+      <div className="lg:hidden w-full bg-slate-900 border-b border-slate-800 px-6 py-4 flex items-center gap-4.5 z-30">
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="p-1.5 text-slate-400 hover:text-white bg-slate-950 border border-slate-800 rounded-lg cursor-pointer"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
+        <div className="flex items-center gap-2">
+          <div className="p-2 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-lg">
+            <Box className="w-5 h-5 text-white" />
+          </div>
+          <span className="font-semibold text-lg text-white">SmartAsset</span>
+        </div>
       </div>
 
       {/* Sidebar Drawer */}
       <aside
-        className={`fixed inset-y-0 left-0 w-64 bg-slate-900/90 border-r border-slate-800/80 backdrop-blur-md flex flex-col justify-between z-20 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 w-64 bg-slate-900/90 border-r border-slate-800/80 backdrop-blur-md flex flex-col justify-between z-50 transition-transform duration-300 lg:translate-x-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:relative lg:flex`}
       >
         <div className="flex flex-col flex-1 py-8 px-6 overflow-y-auto">
-          {/* Logo */}
-          <div className="hidden lg:flex items-center gap-2.5 mb-10">
-            <div className="p-2.5 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/10">
-              <Box className="w-5.5 h-5.5 text-white" />
+          {/* Logo & Close Button */}
+          <div className="flex items-center justify-between lg:justify-start gap-2.5 mb-10">
+            <div className="flex items-center gap-2.5">
+              <div className="p-2.5 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/10">
+                <Box className="w-5.5 h-5.5 text-white" />
+              </div>
+              <span className="font-bold text-lg text-white tracking-tight">
+                SmartAsset <span className="text-violet-500">IITR</span>
+              </span>
             </div>
-            <span className="font-bold text-lg text-white tracking-tight">
-              SmartAsset <span className="text-violet-500">IITR</span>
-            </span>
+            {/* Mobile close button inside drawer */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="lg:hidden p-1.5 text-slate-400 hover:text-white bg-slate-950 border border-slate-800 rounded-lg cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Navigation Links */}
@@ -153,7 +162,7 @@ export default function Sidebar({ user }: SidebarProps) {
       {isOpen && (
         <div
           onClick={() => setIsOpen(false)}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden z-10 transition-opacity"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden z-40 transition-opacity"
         />
       )}
     </>
