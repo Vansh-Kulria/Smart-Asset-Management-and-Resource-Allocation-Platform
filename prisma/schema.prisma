@@ -1,0 +1,144 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?   // Hashed password for Credentials provider
+  role          String    @default("CONSUMER") // "ADMIN" or "CONSUMER"
+  section       String?   // e.g. "CineSec", "MusicSec", "Choreography", etc.
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  bookings      Booking[]
+  auditLogs     AuditLog[]
+  reportedIssues MaintenanceLog[]
+  notifications Notification[]
+}
+
+model Account {
+  id                 String  @id @default(uuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Asset {
+  id                String           @id @default(uuid())
+  name              String
+  category          String           // "Cameras", "Lighting", "Audio Systems", "Costumes", "Props", etc.
+  description       String           @db.Text
+  totalQuantity     Int
+  availableQuantity Int              // Current quantity physical in-stock
+  condition         String           @default("EXCELLENT") // "EXCELLENT", "GOOD", "FAIR", "DAMAGED"
+  status            String           @default("AVAILABLE") // "AVAILABLE", "MAINTENANCE", "OUT_OF_STOCK"
+  qrCode            String?          @db.Text // Base64 data URI for the QR code
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  bookings          Booking[]
+  maintenanceLogs   MaintenanceLog[]
+}
+
+model Booking {
+  id              String     @id @default(uuid())
+  userId          String
+  assetId         String
+  quantity        Int
+  startDate       DateTime
+  endDate         DateTime
+  purpose         String     @db.Text
+  status          String     @default("PENDING") // "PENDING", "APPROVED", "REJECTED", "ISSUED", "RETURNED", "OVERDUE"
+  rejectionReason String?    @db.Text
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  asset           Asset      @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  returnLog       ReturnLog?
+}
+
+model ReturnLog {
+  id                String   @id @default(uuid())
+  bookingId         String   @unique
+  returnedAt        DateTime @default(now())
+  conditionOnReturn String   @default("EXCELLENT") // "EXCELLENT", "GOOD", "FAIR", "DAMAGED"
+  comments          String?  @db.Text
+  recordedBy        String   // ID of Admin who recorded the return
+
+  booking           Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model MaintenanceLog {
+  id               String    @id @default(uuid())
+  assetId          String
+  reportedBy       String
+  issueDescription String    @db.Text
+  cost             Float?
+  status           String    @default("REPORTED") // "REPORTED", "UNDER_REPAIR", "RESOLVED"
+  resolvedAt       DateTime?
+  createdAt        DateTime  @default(now())
+
+  asset            Asset     @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  reporter         User      @relation(fields: [reportedBy], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String   // "CREATE_ASSET", "UPDATE_ASSET", "DELETE_ASSET", "APPROVE_BOOKING", "REJECT_BOOKING", "ISSUE_ASSET", "RETURN_ASSET"
+  details   String   @db.Text // JSON string representing action details
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String   @db.Text
+  type      String   @default("INFO") // "INFO", "SUCCESS", "WARNING", "DANGER"
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
