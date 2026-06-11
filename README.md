@@ -43,11 +43,6 @@ NextAuth
 Prisma ORM
   ↓
 PostgreSQL
-```
-
-![Architecture](docs/architecture.png)
-
----
 
 ## Features
 
