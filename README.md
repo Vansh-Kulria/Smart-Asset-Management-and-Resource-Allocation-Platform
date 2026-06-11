@@ -83,6 +83,7 @@ PostgreSQL
 ### Environment Variables
 Create a `.env` file in the root directory and copy the format from `.env.example`:
 ```
+```
 env
 DATABASE_URL=
 
