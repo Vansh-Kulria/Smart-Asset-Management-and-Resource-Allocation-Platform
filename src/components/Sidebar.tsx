@@ -18,6 +18,7 @@ import {
   Box,
   User,
   Activity,
+  Users,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -48,6 +49,7 @@ export default function Sidebar({ user }: SidebarProps) {
     { name: "Manage Inventory", href: "/admin/inventory", icon: Boxes },
     { name: "Booking Requests", href: "/admin/requests", icon: ClipboardCheck },
     { name: "Issue & Return", href: "/admin/operations", icon: QrCode },
+    { name: "Manage Users", href: "/admin/users", icon: Users },
     { name: "System Logs", href: "/admin/audit", icon: FileText },
     { name: "My Profile", href: "/admin/profile", icon: User },
   ];
