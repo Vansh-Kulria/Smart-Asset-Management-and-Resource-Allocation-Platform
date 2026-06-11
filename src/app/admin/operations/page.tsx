@@ -249,7 +249,7 @@ export default function IssueReturn() {
         <div className="bg-slate-900/40 p-6 border border-slate-800/60 rounded-2xl backdrop-blur-md space-y-6">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
             {/* Search Input */}
-            <div className="relative w-full md:max-w-md">
+            <form onSubmit={(e) => e.preventDefault()} className="relative w-full md:max-w-md">
               <Search className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-500" />
               <input
                 type="text"
@@ -260,16 +260,18 @@ export default function IssueReturn() {
               />
               {search && (
                 <button
+                  type="button"
                   onClick={() => setSearch("")}
                   className="absolute right-3 top-3 text-xs text-slate-500 hover:text-slate-300 font-semibold uppercase cursor-pointer"
                 >
                   Clear
                 </button>
               )}
-            </div>
+            </form>
 
             {/* QR Scanner Trigger */}
             <button
+              type="button"
               onClick={toggleScanner}
               className={`px-4.5 py-3 rounded-xl border text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
                 showScanner

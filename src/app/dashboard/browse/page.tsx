@@ -208,7 +208,7 @@ export default function BrowseAssets() {
         {/* Search & Filter Bar */}
         <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-slate-900/40 p-4 border border-slate-800/60 rounded-2xl backdrop-blur-md">
           {/* Search Box */}
-          <div className="relative w-full md:max-w-md">
+          <form onSubmit={(e) => e.preventDefault()} className="relative w-full md:max-w-md">
             <Search className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-500" />
             <input
               type="text"
@@ -217,7 +217,7 @@ export default function BrowseAssets() {
               placeholder="Search assets by name or details..."
               className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-violet-600 transition-all text-sm"
             />
-          </div>
+          </form>
 
           {/* Category Tabs */}
           <div className="w-full md:w-auto overflow-x-auto no-scrollbar flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
