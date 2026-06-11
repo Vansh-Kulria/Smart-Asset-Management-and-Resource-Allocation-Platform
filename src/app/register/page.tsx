@@ -63,11 +63,11 @@ export default function RegisterPage() {
 
       <div className="w-full max-w-md bg-slate-900/50 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl z-10">
         <div className="flex flex-col items-center mb-6">
-          <div className="p-3 bg-linear-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/20 mb-3">
-            <Box className="w-6 h-6 text-white" />
+          <div className="bg-white/95 px-4 py-2.5 rounded-2xl shadow-lg shadow-indigo-500/5 mb-4 max-w-[200px] h-14 flex items-center justify-center overflow-hidden">
+            <img src="/logo.png" alt="AssetFlow Logo" className="h-full w-auto object-contain" />
           </div>
           <h2 className="text-2xl font-bold text-white tracking-tight">Create Account</h2>
-          <p className="text-sm text-slate-400 mt-1.5">Register for IITR SmartAsset Platform</p>
+          <p className="text-sm text-slate-400 mt-1.5">Register for AssetFlow IITR Platform</p>
         </div>
 
         {error && (

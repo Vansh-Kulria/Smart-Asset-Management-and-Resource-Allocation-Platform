@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Smart Asset Management & Resource Allocation",
+  title: "AssetFlow - Smart Asset Management & Resource Allocation",
   description: "Cultural Council - IIT Roorkee Shared Asset Management Platform",
 };
 
