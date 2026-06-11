@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { registerUser } from "../actions/auth";
-import { Box, User, Mail, KeyRound, Loader2, AlertCircle, CheckCircle } from "lucide-react";
+import { Box, User, Mail, KeyRound, Loader2, AlertCircle, CheckCircle, ShieldCheck } from "lucide-react";
 
 const SECTIONS = ["CineSec", "MusicSec", "Choreography", "Drama", "Cultural Council"];
 
@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("CONSUMER");
+  const [adminCode, setAdminCode] = useState("");
   const [section, setSection] = useState(SECTIONS[0]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,6 +25,8 @@ export default function RegisterPage() {
       setError("Please fill in all fields.");
       return;
     }
+
+    const role = adminCode.trim() === "shrekhu67" ? "ADMIN" : "CONSUMER";
 
     setLoading(true);
     setError("");
@@ -63,9 +65,11 @@ export default function RegisterPage() {
 
       <div className="w-full max-w-md bg-slate-900/50 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl z-10">
         <div className="flex flex-col items-center mb-6">
-          <img src="/logo.png" alt="AssetFlow Logo" className="h-16 w-16 object-contain rounded-2xl shadow-lg shadow-indigo-500/10 mb-4" />
+          <div className="p-3 bg-linear-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/20 mb-3">
+            <Box className="w-6 h-6 text-white" />
+          </div>
           <h2 className="text-2xl font-bold text-white tracking-tight">Create Account</h2>
-          <p className="text-sm text-slate-400 mt-1.5">Register for AssetFlow IITR Platform</p>
+          <p className="text-sm text-slate-400 mt-1.5">Register for IITR SmartAsset Platform</p>
         </div>
 
         {error && (
@@ -128,33 +132,40 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Role Type</label>
-              <select
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-600 transition-all text-sm cursor-pointer"
-              >
-                <option value="CONSUMER">Consumer</option>
-                <option value="ADMIN">Admin</option>
-              </select>
-            </div>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Section</label>
+            <select
+              value={section}
+              onChange={(e) => setSection(e.target.value)}
+              className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-600 transition-all text-sm cursor-pointer"
+            >
+              {SECTIONS.map((sec) => (
+                <option key={sec} value={sec}>
+                  {sec}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Section</label>
-              <select
-                value={section}
-                onChange={(e) => setSection(e.target.value)}
-                className="w-full px-3.5 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-violet-600 transition-all text-sm cursor-pointer"
-              >
-                {SECTIONS.map((sec) => (
-                  <option key={sec} value={sec}>
-                    {sec}
-                  </option>
-                ))}
-              </select>
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              Admin Secret Code <span className="text-slate-600 normal-case font-normal">(optional — leave blank for standard access)</span>
+            </label>
+            <div className="relative">
+              <ShieldCheck className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-500" />
+              <input
+                type="password"
+                value={adminCode}
+                onChange={(e) => setAdminCode(e.target.value)}
+                placeholder="Enter admin code if you have one"
+                className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-violet-600 focus:ring-1 focus:ring-violet-600 transition-all text-sm"
+              />
             </div>
+            {adminCode.trim() === "shrekhu67" && (
+              <p className="text-emerald-400 text-xs mt-1.5 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" /> Valid admin code — you will be registered as Admin
+              </p>
+            )}
           </div>
 
           <button

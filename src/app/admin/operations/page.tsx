@@ -5,7 +5,7 @@ import Header from "../../../components/Header";
 import { getBookings } from "../../actions/bookings";
 import { issueAsset, returnAsset } from "../../actions/operations";
 import { QrCode, Search, User, ClipboardCheck, ArrowRight, Shuffle, Loader2, AlertCircle, CheckCircle2, Video, VideoOff } from "lucide-react";
-import type { Html5Qrcode } from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 
 interface Booking {
   id: string;
@@ -147,34 +147,28 @@ export default function IssueReturn() {
       setScanningStatus("Initializing camera...");
       
       // Give DOM time to mount #qr-reader
-      setTimeout(async () => {
-        try {
-          const { Html5Qrcode } = await import("html5-qrcode");
-          const qrScanner = new Html5Qrcode("qr-reader");
-          qrRef.current = qrScanner;
+      setTimeout(() => {
+        const qrScanner = new Html5Qrcode("qr-reader");
+        qrRef.current = qrScanner;
 
-          qrScanner.start(
-            { facingMode: "environment" },
-            {
-              fps: 10,
-              qrbox: { width: 220, height: 220 },
-            },
-            (decodedText) => {
-              handleScanSuccess(decodedText);
-            },
-            () => {
-              // Silence scanning frame debug failures
-            }
-          ).then(() => {
-            setScanningStatus("Scanning... Point camera at asset label QR Code");
-          }).catch((err) => {
-            console.error(err);
-            setScanningStatus("Failed to access camera. Check browser permissions.");
-          });
-        } catch (err) {
-          console.error("Failed to load html5-qrcode:", err);
-          setScanningStatus("Failed to initialize QR scanner module.");
-        }
+        qrScanner.start(
+          { facingMode: "environment" },
+          {
+            fps: 10,
+            qrbox: { width: 220, height: 220 },
+          },
+          (decodedText) => {
+            handleScanSuccess(decodedText);
+          },
+          () => {
+            // Silence scanning frame debug failures
+          }
+        ).then(() => {
+          setScanningStatus("Scanning... Point camera at asset label QR Code");
+        }).catch((err) => {
+          console.error(err);
+          setScanningStatus("Failed to access camera. Check browser permissions.");
+        });
       }, 300);
     }
   };
@@ -216,10 +210,10 @@ export default function IssueReturn() {
     if (!search) return list;
     const lower = search.toLowerCase();
     return list.filter((b) =>
-      (b.user?.name || "").toLowerCase().includes(lower) ||
-      (b.asset?.name || "").toLowerCase().includes(lower) ||
-      (b.asset?.id || "").toLowerCase().includes(lower) ||
-      (b.user?.section || "").toLowerCase().includes(lower)
+      b.user.name.toLowerCase().includes(lower) ||
+      b.asset.name.toLowerCase().includes(lower) ||
+      b.asset.id.toLowerCase().includes(lower) ||
+      b.user.section.toLowerCase().includes(lower)
     );
   };
 

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "../components/AuthProvider";
@@ -15,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AssetFlow - Smart Asset Management & Resource Allocation",
+  title: "Smart Asset Management & Resource Allocation",
   description: "Cultural Council - IIT Roorkee Shared Asset Management Platform",
 };
 

@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Box, KeyRound, Mail, Loader2, AlertCircle } from "lucide-react";
+import { Box, KeyRound, Mail, Loader2, AlertCircle, ShieldCheck } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [adminCode, setAdminCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -28,6 +29,7 @@ export default function LoginPage() {
         redirect: false,
         email,
         password,
+        adminCode: adminCode.trim(),
       });
 
       if (res?.error) {
@@ -60,7 +62,9 @@ export default function LoginPage() {
 
       <div className="w-full max-w-md bg-slate-900/50 border border-slate-800/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl z-10">
         <div className="flex flex-col items-center mb-8">
-          <img src="/logo.png" alt="AssetFlow Logo" className="h-16 w-16 object-contain rounded-2xl shadow-lg shadow-indigo-500/10 mb-4" />
+          <div className="p-3 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/20 mb-3">
+            <Box className="w-6 h-6 text-white" />
+          </div>
           <h2 className="text-2xl font-bold text-white tracking-tight">Welcome Back</h2>
           <p className="text-sm text-slate-400 mt-1.5">Sign in to manage your council assets</p>
         </div>
@@ -103,6 +107,27 @@ export default function LoginPage() {
                 className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-violet-600 focus:ring-1 focus:ring-violet-600 transition-all text-sm"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              Admin Secret Code <span className="text-slate-600 normal-case font-normal">(optional)</span>
+            </label>
+            <div className="relative">
+              <ShieldCheck className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-500" />
+              <input
+                type="password"
+                value={adminCode}
+                onChange={(e) => setAdminCode(e.target.value)}
+                placeholder="Enter admin code to sign in as admin"
+                className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-violet-600 focus:ring-1 focus:ring-violet-600 transition-all text-sm"
+              />
+            </div>
+            {adminCode.trim() === "shrekhu67" && (
+              <p className="text-emerald-400 text-xs mt-1.5 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" /> Admin code recognized
+              </p>
+            )}
           </div>
 
           <button

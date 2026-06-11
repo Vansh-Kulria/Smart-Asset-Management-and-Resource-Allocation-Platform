@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "../../../components/Header";
 import { getAssets, checkAssetAvailability } from "../../actions/assets";
 import { createBooking } from "../../actions/bookings";
@@ -35,6 +35,9 @@ export default function BrowseAssets() {
   const [submitting, setSubmitting] = useState(false);
   const [modalError, setModalError] = useState("");
   const [modalSuccess, setModalSuccess] = useState("");
+
+  const startDateRef = useRef<HTMLInputElement>(null);
+  const endDateRef = useRef<HTMLInputElement>(null);
 
   const getTodayString = () => {
     const d = new Date();
@@ -346,14 +349,18 @@ export default function BrowseAssets() {
                   <div>
                     <label className="block text-xxs font-bold uppercase tracking-wider text-slate-400 mb-2">Start Date</label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
+                      <Calendar
+                        className="absolute left-3 top-3 w-4 h-4 text-slate-500 cursor-pointer z-10"
+                        onClick={() => startDateRef.current?.showPicker()}
+                      />
                       <input
+                        ref={startDateRef}
                         type="date"
                         required
                         min={todayStr}
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:border-violet-600"
+                        className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:border-violet-600 cursor-pointer"
                       />
                     </div>
                   </div>
@@ -361,14 +368,18 @@ export default function BrowseAssets() {
                   <div>
                     <label className="block text-xxs font-bold uppercase tracking-wider text-slate-400 mb-2">End Date (Due Date)</label>
                     <div className="relative">
-                      <Calendar className="absolute left-3 top-3 w-4 h-4 text-slate-500" />
+                      <Calendar
+                        className="absolute left-3 top-3 w-4 h-4 text-slate-500 cursor-pointer z-10"
+                        onClick={() => endDateRef.current?.showPicker()}
+                      />
                       <input
+                        ref={endDateRef}
                         type="date"
                         required
                         min={startDate || todayStr}
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
-                        className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:border-violet-600"
+                        className="w-full pl-9 pr-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-white text-xs focus:outline-none focus:border-violet-600 cursor-pointer"
                       />
                     </div>
                   </div>

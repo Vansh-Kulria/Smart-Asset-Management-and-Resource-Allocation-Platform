@@ -18,7 +18,6 @@ import {
   Box,
   User,
   Activity,
-  Users,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -49,7 +48,6 @@ export default function Sidebar({ user }: SidebarProps) {
     { name: "Manage Inventory", href: "/admin/inventory", icon: Boxes },
     { name: "Booking Requests", href: "/admin/requests", icon: ClipboardCheck },
     { name: "Issue & Return", href: "/admin/operations", icon: QrCode },
-    { name: "Manage Users", href: "/admin/users", icon: Users },
     { name: "System Logs", href: "/admin/audit", icon: FileText },
     { name: "My Profile", href: "/admin/profile", icon: User },
   ];
@@ -71,8 +69,10 @@ export default function Sidebar({ user }: SidebarProps) {
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="AssetFlow Logo" className="h-8 w-8 object-contain rounded-lg shadow-md" />
-          <span className="font-semibold text-lg text-white">AssetFlow</span>
+          <div className="p-2 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-lg">
+            <Box className="w-5 h-5 text-white" />
+          </div>
+          <span className="font-semibold text-lg text-white">SmartAsset</span>
         </div>
       </div>
 
@@ -86,9 +86,11 @@ export default function Sidebar({ user }: SidebarProps) {
           {/* Logo & Close Button */}
           <div className="flex items-center justify-between lg:justify-start gap-2.5 mb-10">
             <div className="flex items-center gap-2.5">
-              <img src="/logo.png" alt="AssetFlow Logo" className="h-9 w-9 object-contain rounded-xl shadow-md" />
+              <div className="p-2.5 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/10">
+                <Box className="w-5.5 h-5.5 text-white" />
+              </div>
               <span className="font-bold text-lg text-white tracking-tight">
-                AssetFlow <span className="text-violet-500">IITR</span>
+                SmartAsset <span className="text-violet-500">IITR</span>
               </span>
             </div>
             {/* Mobile close button inside drawer */}
