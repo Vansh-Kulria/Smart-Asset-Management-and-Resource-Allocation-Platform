@@ -44,11 +44,7 @@ Prisma ORM
   ↓
 PostgreSQL
 ```
-
-![Architecture](docs/architecture.png)
-
----
-
+```
 ## Features
 
 ### Authentication & Onboarding
@@ -86,7 +82,9 @@ PostgreSQL
 
 ### Environment Variables
 Create a `.env` file in the root directory and copy the format from `.env.example`:
-```env
+```
+```
+env
 DATABASE_URL=
 
 NEXTAUTH_SECRET=
@@ -197,12 +195,3 @@ The system models include:
 
 ---
 
-## Future Enhancements
-- Automated email notices prompting users of pending returns.
-- PDF generation utilities for bulk printing asset labels.
-- Offline support caching checkouts when network connectivity is lost.
-
----
-
-## License
-MIT License
