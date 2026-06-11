@@ -143,7 +143,7 @@ export default function BookingRequests() {
             <ClipboardCheck className="w-5 h-5 text-violet-400" /> Pending Allocations Approval
           </div>
 
-          <div className="w-full md:w-auto overflow-x-auto flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
+          <div className="w-full md:w-auto overflow-x-auto no-scrollbar flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
             {["PENDING", "APPROVED", "REJECTED"].map((status) => (
               <button
                 key={status}

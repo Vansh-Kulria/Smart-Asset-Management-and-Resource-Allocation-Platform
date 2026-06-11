@@ -91,7 +91,7 @@ export default function BorrowHistory() {
           <div className="flex items-center gap-2 text-slate-400 text-sm">
             <Filter className="w-4 h-4" /> Filter Status
           </div>
-          <div className="w-full md:w-auto overflow-x-auto flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
+          <div className="w-full md:w-auto overflow-x-auto no-scrollbar flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
             {FILTER_STATUSES.map((status) => (
               <button
                 key={status}

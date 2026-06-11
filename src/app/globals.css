@@ -24,3 +24,38 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom scrollbar styling for WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617; /* bg-slate-950 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b; /* bg-slate-800 */
+  border-radius: 9999px;
+  border: 2px solid #020617;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155; /* bg-slate-700 */
+}
+
+/* Custom scrollbar styling for Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1e293b #020617;
+}
+
+/* Utility class to hide scrollbar completely */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

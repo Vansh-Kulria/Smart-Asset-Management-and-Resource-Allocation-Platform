@@ -220,7 +220,7 @@ export default function BrowseAssets() {
           </div>
 
           {/* Category Tabs */}
-          <div className="w-full md:w-auto overflow-x-auto flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
+          <div className="w-full md:w-auto overflow-x-auto no-scrollbar flex gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl max-w-full">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
