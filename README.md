@@ -43,7 +43,8 @@ NextAuth
 Prisma ORM
   ↓
 PostgreSQL
-
+```
+```
 ## Features
 
 ### Authentication & Onboarding
