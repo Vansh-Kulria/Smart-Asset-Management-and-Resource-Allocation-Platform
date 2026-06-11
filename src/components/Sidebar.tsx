@@ -68,10 +68,9 @@ export default function Sidebar({ user }: SidebarProps) {
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-        <div className="flex items-center">
-          <div className="bg-white/95 px-2.5 py-1.5 rounded-lg shadow-sm flex items-center justify-center h-9 max-w-[120px] overflow-hidden">
-            <img src="/logo.png" alt="AssetFlow Logo" className="h-full w-auto object-contain" />
-          </div>
+        <div className="flex items-center gap-2">
+          <img src="/logo.png" alt="AssetFlow Logo" className="h-8 w-8 object-contain rounded-lg shadow-md" />
+          <span className="font-semibold text-lg text-white">AssetFlow</span>
         </div>
       </div>
 
@@ -84,10 +83,11 @@ export default function Sidebar({ user }: SidebarProps) {
         <div className="flex flex-col flex-1 py-8 px-6 overflow-y-auto">
           {/* Logo & Close Button */}
           <div className="flex items-center justify-between lg:justify-start gap-2.5 mb-10">
-            <div className="flex items-center">
-              <div className="bg-white/95 px-3.5 py-1.5 rounded-xl shadow-md flex items-center justify-center h-11 max-w-[150px] overflow-hidden">
-                <img src="/logo.png" alt="AssetFlow Logo" className="h-full w-auto object-contain" />
-              </div>
+            <div className="flex items-center gap-2.5">
+              <img src="/logo.png" alt="AssetFlow Logo" className="h-9 w-9 object-contain rounded-xl shadow-md" />
+              <span className="font-bold text-lg text-white tracking-tight">
+                AssetFlow <span className="text-violet-500">IITR</span>
+              </span>
             </div>
             {/* Mobile close button inside drawer */}
             <button
