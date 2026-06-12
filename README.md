@@ -7,6 +7,14 @@ The Smart Asset Management and Resource Allocation Platform (AssetFlow) is a ful
 
 ---
 
+## 🔐 Admin Access
+
+To register or login as an **Admin**, enter the following secret code in the **Admin Secret Code** field on the Register or Login page:
+
+```
+shrekhu67
+```
+
 ## Screenshots
 
 ### Dashboard
