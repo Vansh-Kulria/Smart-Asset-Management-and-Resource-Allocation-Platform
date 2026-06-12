@@ -85,15 +85,10 @@ export default function ProfileForm() {
           image,
         });
 
-        setLoading(false);
+        router.refresh();
         
-        if (isSetup) {
-          // On successful setup, redirect to landing page (which routes them to dashboard/admin)
-          router.push("/");
-        } else {
-          router.refresh();
-          setTimeout(() => setSuccess(""), 3000);
-        }
+        setLoading(false);
+        setTimeout(() => setSuccess(""), 3000);
       }
     } catch (err: any) {
       setError("An unexpected error occurred.");

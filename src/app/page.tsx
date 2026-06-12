@@ -32,10 +32,12 @@ export default async function LandingPage() {
 
       {/* Header */}
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center z-10">
-        <div className="flex items-center gap-2.5">
-          <img src="/logo.png" alt="AssetFlow Logo" className="h-9 w-9 object-contain rounded-xl shadow-md" />
-          <span className="font-bold text-xl tracking-tight text-white">
-            AssetFlow <span className="text-violet-500">IITR</span>
+        <div className="flex items-center gap-2">
+          <div className="p-2.5 bg-gradient-to-tr from-violet-600 to-indigo-600 rounded-xl shadow-lg shadow-indigo-500/20">
+            <Box className="w-6 h-6 text-white" />
+          </div>
+          <span className="font-semibold text-xl tracking-tight text-white">
+            SmartAsset <span className="text-violet-500">IITR</span>
           </span>
         </div>
         <div className="flex items-center gap-4">

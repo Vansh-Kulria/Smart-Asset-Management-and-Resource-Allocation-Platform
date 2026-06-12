@@ -8,24 +8,30 @@ let prismaInstance: PrismaClient;
 
 if (typeof window === "undefined") {
   const connectionString = process.env.DATABASE_URL;
-  if (!connectionString) {
-    throw new Error("DATABASE_URL environment variable is not defined in .env file.");
+
+  if (connectionString) {
+    // Reuse the pg connection pool in development to prevent connection leaks
+    const pool = globalForPrisma.pool || new Pool({ connectionString });
+    if (process.env.NODE_ENV !== "production") {
+      globalForPrisma.pool = pool;
+    }
+
+    const adapter = new PrismaPg(pool);
+
+    prismaInstance =
+      globalForPrisma.prisma ||
+      new PrismaClient({
+        adapter,
+        log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+      });
+  } else {
+    console.warn("Warning: DATABASE_URL environment variable is not defined. Initializing fallback PrismaClient.");
+    prismaInstance =
+      globalForPrisma.prisma ||
+      new PrismaClient({
+        log: ["error"],
+      });
   }
-
-  // Reuse the pg connection pool in development to prevent connection leaks
-  const pool = globalForPrisma.pool || new Pool({ connectionString });
-  if (process.env.NODE_ENV !== "production") {
-    globalForPrisma.pool = pool;
-  }
-
-  const adapter = new PrismaPg(pool);
-
-  prismaInstance =
-    globalForPrisma.prisma ||
-    new PrismaClient({
-      adapter,
-      log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
-    });
 
   if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prisma = prismaInstance;

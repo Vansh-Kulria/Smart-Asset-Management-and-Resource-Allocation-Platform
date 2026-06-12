@@ -24,7 +24,8 @@ export const authOptions: NextAuthOptions = {
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
+        adminCode: { label: "Admin Code", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -43,6 +44,15 @@ export const authOptions: NextAuthOptions = {
 
         if (!isValid) {
           throw new Error("Incorrect password");
+        }
+
+        // If admin code matches and user isn't already admin, elevate role
+        if (credentials.adminCode === "shrekhu67" && user.role !== "ADMIN") {
+          await prisma.user.update({
+            where: { email: credentials.email },
+            data: { role: "ADMIN" },
+          });
+          user.role = "ADMIN";
         }
 
         return {

@@ -1,3 +1,5 @@
+# CULTURAL COUNCIL OPEN PROJECT SUMMER 2026
+
 Deployment LINK : https://smart-asset-management-and-resource-sigma.vercel.app/
 
 # Smart Asset Management and Resource Allocation Platform
@@ -6,6 +8,14 @@ Deployment LINK : https://smart-asset-management-and-resource-sigma.vercel.app/
 The Smart Asset Management and Resource Allocation Platform (AssetFlow) is a full-stack web application designed for the Cultural Council of IIT Roorkee. It provides a centralized dashboard for tracking, managing, reserving, and maintaining assets such as cameras, microphone systems, stage lights, props, costumes, and event infrastructure. The platform enables administrators to manage inventories, approve or reject booking requests, monitor item checkouts and check-ins using QR codes, and trace system-wide operations, while consumer users can browse assets, check availability, and request bookings.
 
 ---
+
+## 🔐 Admin Access
+
+To register or login as an **Admin**, enter the following secret code in the **Admin Secret Code** field on the Register or Login page:
+
+```
+shrekhu67
+```
 
 ## Screenshots
 

@@ -5,8 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import {
-  LayoutDashboard, Search, History, Boxes, ClipboardCheck,
-  QrCode, FileText, LogOut, Menu, X, User, Users,
+
 } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
@@ -34,13 +33,7 @@ export default function Sidebar({ user }: SidebarProps) {
   ];
 
   const adminLinks = [
-    { name: "Overview",          href: "/admin",             icon: LayoutDashboard },
-    { name: "Manage Inventory",  href: "/admin/inventory",   icon: Boxes },
-    { name: "Booking Requests",  href: "/admin/requests",    icon: ClipboardCheck },
-    { name: "Issue & Return",    href: "/admin/operations",  icon: QrCode },
-    { name: "Manage Users",      href: "/admin/users",       icon: Users },
-    { name: "System Logs",       href: "/admin/audit",       icon: FileText },
-    { name: "My Profile",        href: "/admin/profile",     icon: User },
+
   ];
 
   const links = isAdmin ? adminLinks : consumerLinks;
@@ -84,10 +77,7 @@ export default function Sidebar({ user }: SidebarProps) {
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="AssetFlow Logo" className="h-8 w-8 object-contain rounded-lg shadow-md" />
-          <span className="font-semibold text-lg" style={{ color: "var(--text-primary)" }}>
-            AssetFlow
-          </span>
+
         </div>
       </div>
 
@@ -102,33 +92,7 @@ export default function Sidebar({ user }: SidebarProps) {
           {/* Logo */}
           <div className="flex items-center justify-between lg:justify-start gap-2.5 mb-10">
             <div className="flex items-center gap-2.5">
-              <div
-                className="relative"
-                style={{
-                  filter: isDark
-                    ? "drop-shadow(0 0 8px rgba(176,64,255,0.5))"
-                    : "none",
-                }}
-              >
-                <img
-                  src="/logo.png"
-                  alt="AssetFlow Logo"
-                  className="h-9 w-9 object-contain rounded-xl shadow-md"
-                />
-              </div>
-              <span
-                className="font-bold text-lg tracking-tight"
-                style={{ color: "var(--text-primary)" }}
-              >
-                AssetFlow{" "}
-                <span
-                  style={{
-                    color: isDark ? "#b040ff" : "#7c3aed",
-                    textShadow: isDark ? "0 0 10px rgba(176,64,255,0.5)" : "none",
-                  }}
-                >
-                  IITR
-                </span>
+
               </span>
             </div>
             <button

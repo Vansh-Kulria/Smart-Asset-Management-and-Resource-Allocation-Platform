@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { KeyRound, Mail, Loader2, AlertCircle } from "lucide-react";
-import { useTheme } from "@/components/ThemeProvider";
+
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [adminCode, setAdminCode] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { isDark } = useTheme();
@@ -20,10 +20,7 @@ export default function LoginPage() {
     if (!email || !password) { setError("Please fill in all fields."); return; }
     setLoading(true); setError("");
     try {
-      const res = await signIn("credentials", { redirect: false, email, password });
-      if (res?.error) { setError("Invalid email or password. Please try again."); setLoading(false); }
-      else { router.refresh(); router.push("/"); }
-    } catch { setError("An unexpected error occurred."); setLoading(false); }
+
   };
 
   const handleOAuthSignIn = async (provider: string) => {
@@ -65,37 +62,7 @@ export default function LoginPage() {
       >
         {/* Logo block */}
         <div className="flex flex-col items-center mb-8">
-          <div
-            className="relative mb-4"
-            style={{ filter: isDark ? "drop-shadow(0 0 14px rgba(176,64,255,0.55))" : "none" }}
-          >
-            <img src="/logo.png" alt="AssetFlow Logo" className="h-16 w-16 object-contain rounded-2xl" />
-          </div>
-          <h2
-            className="text-2xl font-bold tracking-tight"
-            style={{
-              color: "var(--text-primary)",
-              textShadow: isDark ? "0 0 20px rgba(176,64,255,0.35)" : "none",
-            }}
-          >
-            Welcome Back
-          </h2>
-          <p className="text-sm mt-1.5" style={{ color: "var(--text-secondary)" }}>
-            Sign in to manage your council assets
-          </p>
-          {isDark && (
-            <div
-              className="mt-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border"
-              style={{
-                color: "#00d2ff",
-                borderColor: "rgba(0,210,255,0.2)",
-                background: "rgba(0,210,255,0.06)",
-                fontFamily: "var(--font-geist-mono, monospace)",
-              }}
-            >
-              🌐 Cyberpunk Mode Active
-            </div>
-          )}
+
         </div>
 
         {error && (
@@ -174,6 +141,27 @@ export default function LoginPage() {
                 }}
               />
             </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">
+              Admin Secret Code <span className="text-slate-600 normal-case font-normal">(optional)</span>
+            </label>
+            <div className="relative">
+              <ShieldCheck className="absolute left-3.5 top-3.5 w-5 h-5 text-slate-500" />
+              <input
+                type="password"
+                value={adminCode}
+                onChange={(e) => setAdminCode(e.target.value)}
+                placeholder="Enter admin code to sign in as admin"
+                className="w-full pl-11 pr-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-violet-600 focus:ring-1 focus:ring-violet-600 transition-all text-sm"
+              />
+            </div>
+            {adminCode.trim() === "shrekhu67" && (
+              <p className="text-emerald-400 text-xs mt-1.5 flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5" /> Admin code recognized
+              </p>
+            )}
           </div>
 
           <button
