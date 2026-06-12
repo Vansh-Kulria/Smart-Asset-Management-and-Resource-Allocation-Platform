@@ -1,3 +1,5 @@
+# CULTURAL COUNCIL OPEN PROJECT SUMMER 2026
+
 Deployment LINK : https://smart-asset-management-and-resource-sigma.vercel.app/
 
 # Smart Asset Management and Resource Allocation Platform
