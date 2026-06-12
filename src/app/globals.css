@@ -1,61 +1,316 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────
+   Tailwind v4 – class-based dark variant
+   .dark on <html> → dark: modifiers activate
+───────────────────────────────────────────────────────────────── */
+@variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────────────────────────
+   THEME TOKENS
+   Default (light): Gallery minimalist pastels
+   .dark:           Cyberpunk / Neon
+───────────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Gallery Light (default without .dark) */
+  --bg-base:        #f0f4ff;
+  --bg-card:        #ffffff;
+  --bg-sidebar:     rgba(248, 250, 255, 0.97);
+  --bg-header:      rgba(255, 255, 255, 0.95);
+  --border-color:   rgba(100, 120, 200, 0.15);
+  --border-hover:   rgba(100, 120, 200, 0.3);
+  --text-primary:   #0f172a;
+  --text-secondary: #64748b;
+  --text-muted:     #94a3b8;
+  --accent-main:    #7c3aed;
+  --accent-pink:    #f472b6;
+  --accent-blue:    #60a5fa;
+  --accent-green:   #34d399;
+  --glow-accent:    none;
+  --glow-card:      0 4px 24px rgba(124, 58, 237, 0.06);
+  --ticker-bg:      rgba(240, 244, 255, 0.98);
+  --ticker-border:  rgba(124, 58, 237, 0.15);
+  --ticker-text:    #334155;
+  --ticker-muted:   #94a3b8;
+  --ticker-label:   #7c3aed;
+  --ticker-dot:     #7c3aed;
+  --sidebar-active-bg: rgba(124, 58, 237, 0.08);
+  --sidebar-active-border: rgba(124, 58, 237, 0.25);
+  --sidebar-active-text: #7c3aed;
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #cbd5e1;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html.dark {
+  /* Cyberpunk Neon Dark */
+  --bg-base:        #0d1117;
+  --bg-card:        #0d1b2a;
+  --bg-sidebar:     rgba(10, 16, 26, 0.92);
+  --bg-header:      rgba(13, 17, 23, 0.98);
+  --border-color:   rgba(0, 210, 255, 0.08);
+  --border-hover:   rgba(0, 210, 255, 0.22);
+  --text-primary:   #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted:     #475569;
+  --accent-main:    #b040ff;
+  --accent-pink:    #ff2d78;   /* Dance – Neon Pink */
+  --accent-blue:    #00d2ff;   /* Music – Electric Blue */
+  --accent-green:   #39ff14;   /* Drama – Acid Green */
+  --glow-accent:    0 0 18px rgba(176, 64, 255, 0.35);
+  --glow-card:      0 0 0 1px rgba(0, 210, 255, 0.07), 0 4px 24px rgba(0, 0, 0, 0.5);
+  --ticker-bg:      rgba(13, 17, 23, 0.98);
+  --ticker-border:  rgba(0, 210, 255, 0.12);
+  --ticker-text:    #cbd5e1;
+  --ticker-muted:   #475569;
+  --ticker-label:   #00d2ff;
+  --ticker-dot:     #00d2ff;
+  --sidebar-active-bg: rgba(176, 64, 255, 0.12);
+  --sidebar-active-border: rgba(176, 64, 255, 0.22);
+  --sidebar-active-text: #d488ff;
+  --scrollbar-track: #0d1117;
+  --scrollbar-thumb: #1a2742;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─────────────────────────────────────────────────────────────────
+   GLOBAL RESETS – override hard-coded Tailwind slate colours
+───────────────────────────────────────────────────────────────── */
+html, body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  transition: background 0.25s ease, color 0.2s ease;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Card / panel backgrounds */
+html:not(.dark) .bg-slate-950,
+html:not(.dark) .bg-slate-950\/40,
+html:not(.dark) .bg-slate-950\/50 {
+  background-color: var(--bg-base) !important;
+}
+html:not(.dark) .bg-slate-900\/40,
+html:not(.dark) .bg-slate-900\/60,
+html:not(.dark) .bg-slate-900\/90,
+html:not(.dark) .bg-slate-900\/95 {
+  background-color: var(--bg-card) !important;
+  box-shadow: var(--glow-card) !important;
+}
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-slate-800\/60,
+html:not(.dark) .border-slate-800\/80,
+html:not(.dark) .border-slate-800\/40,
+html:not(.dark) .border-slate-800\/90 {
+  border-color: var(--border-color) !important;
+}
+html:not(.dark) .text-white  { color: var(--text-primary)   !important; }
+html:not(.dark) .text-slate-400 { color: var(--text-secondary) !important; }
+html:not(.dark) .text-slate-500 { color: var(--text-muted)    !important; }
+html:not(.dark) .text-slate-200 { color: #334155             !important; }
+html:not(.dark) .bg-slate-950\/40.border-dashed {
+  background-color: #f8faff !important;
+}
+html:not(.dark) .divide-slate-800\/40 > * + * {
+  border-color: rgba(226, 232, 240, 0.5) !important;
+}
+html:not(.dark) .bg-slate-950\/50 {
+  background-color: #f5f7ff !important;
+}
+html:not(.dark) thead tr {
+  border-color: #e2e8f0 !important;
 }
 
-/* Custom scrollbar styling for WebKit (Chrome, Edge, Safari) */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Cyberpunk card glow in dark mode */
+html.dark .bg-slate-900\/40,
+html.dark .bg-slate-900\/60 {
+  background-color: var(--bg-card) !important;
+  border-color: var(--border-color) !important;
+  box-shadow: var(--glow-card) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+html.dark .bg-slate-900\/40:hover,
+html.dark .bg-slate-900\/60:hover {
+  border-color: rgba(0, 210, 255, 0.16) !important;
+  box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.12), 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+html.dark .bg-slate-950 {
+  background-color: var(--bg-base) !important;
+}
+html.dark .border-slate-800,
+html.dark .border-slate-800\/60,
+html.dark .border-slate-800\/80 {
+  border-color: var(--border-color) !important;
 }
 
-::-webkit-scrollbar-track {
-  background: #020617; /* bg-slate-950 */
+/* ─────────────────────────────────────────────────────────────────
+   NEON ACCENT EFFECTS (dark only)
+───────────────────────────────────────────────────────────────── */
+html.dark .neon-text {
+  text-shadow: 0 0 10px var(--accent-main), 0 0 20px rgba(176, 64, 255, 0.4);
+}
+html.dark .neon-border {
+  box-shadow: 0 0 0 1px rgba(0, 210, 255, 0.25), 0 0 12px rgba(0, 210, 255, 0.1);
+}
+/* Neon purple active-state glow for sidebar links */
+html.dark .sidebar-active {
+  background: var(--sidebar-active-bg) !important;
+  border-color: var(--sidebar-active-border) !important;
+  color: var(--sidebar-active-text) !important;
+  box-shadow: 0 0 12px rgba(176, 64, 255, 0.2) !important;
+}
+/* Override Tailwind violet active on dark */
+html.dark .bg-violet-600\/15 {
+  background: var(--sidebar-active-bg) !important;
+}
+html.dark .border-violet-600\/20 {
+  border-color: var(--sidebar-active-border) !important;
+}
+html.dark .text-violet-400 {
+  color: var(--sidebar-active-text) !important;
+}
+/* Violet button neon glow */
+html.dark .bg-violet-600 {
+  background-color: #8b20e8 !important;
+  box-shadow: 0 0 18px rgba(176, 64, 255, 0.4) !important;
+}
+html.dark .bg-violet-600:hover {
+  background-color: #9a30f0 !important;
+  box-shadow: 0 0 28px rgba(176, 64, 255, 0.6) !important;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #1e293b; /* bg-slate-800 */
+/* Light mode violet keeps brand colour */
+html:not(.dark) .bg-violet-600 {
+  background-color: #7c3aed !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3) !important;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   ACTIVITY TICKER
+───────────────────────────────────────────────────────────────── */
+.activity-ticker {
+  background: var(--ticker-bg);
+  border-bottom-color: var(--ticker-border) !important;
+  font-family: var(--font-geist-mono, "Courier New", monospace);
+}
+
+/* LIVE label */
+.ticker-label {
+  background: var(--ticker-bg);
+  border-right: 1px solid var(--ticker-border);
+  color: var(--ticker-label);
+  padding-left: 14px;
+  padding-right: 14px;
+  min-width: 72px;
+}
+
+/* Pulsing live dot */
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ticker-dot);
+  box-shadow: 0 0 6px var(--ticker-dot);
+  animation: live-pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--ticker-dot); }
+  50%       { opacity: 0.4; box-shadow: 0 0 2px var(--ticker-dot); }
+}
+
+/* Scrolling track */
+.ticker-track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  white-space: nowrap;
+  will-change: transform;
+  padding-left: 80px;
+}
+.ticker-track.running  { animation: ticker-scroll 50s linear infinite; }
+.ticker-track.paused   { animation-play-state: paused; }
+
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 28px;
+  font-size: 11px;
+}
+
+.ticker-text {
+  color: var(--ticker-text);
+  font-weight: 500;
+}
+
+.ticker-time {
+  color: var(--ticker-muted);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* Divider dots between items */
+.ticker-item::after {
+  content: "•";
+  color: var(--ticker-muted);
+  margin-left: 20px;
+  opacity: 0.5;
+}
+
+/* Fade edges */
+.ticker-fade-left {
+  background: linear-gradient(to right, var(--ticker-bg), transparent);
+}
+.ticker-fade-right {
+  background: linear-gradient(to left,  var(--ticker-bg), transparent);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CYBERPUNK BACKGROUND GRID (dark mode only)
+───────────────────────────────────────────────────────────────── */
+html.dark body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 210, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+html:not(.dark) body::before { display: none; }
+
+/* ─────────────────────────────────────────────────────────────────
+   SCROLLBARS
+───────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb  {
+  background: var(--scrollbar-thumb);
   border-radius: 9999px;
-  border: 2px solid #020617;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155; /* bg-slate-700 */
+  background: color-mix(in srgb, var(--scrollbar-thumb) 80%, white 20%);
 }
+* { scrollbar-width: thin; scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track); }
 
-/* Custom scrollbar styling for Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #1e293b #020617;
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Utility class to hide scrollbar completely */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ─────────────────────────────────────────────────────────────────
+   SMOOTH TRANSITIONS FOR THEME CHANGE
+───────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* Disable transition on elements that shouldn't animate */
+.no-transition, .no-transition * {
+  transition: none !important;
 }
