@@ -1,5 +1,4 @@
-Deployment LINK : 
-https://smart-asset-management-and-resource-allocation-platf-pfhf8eauk.vercel.app/
+Deployment LINK : https://smart-asset-management-and-resource-sigma.vercel.app/
 
 # Smart Asset Management and Resource Allocation Platform
 
